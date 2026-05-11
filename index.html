@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE 25-LEVEL BIRTHDAY BOSS FIGHT 💖</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --hot-pink: #ff0054;
+            --barbie: #ff85a1;
+            --bubblegum: #ffccd5;
+            --bg: #fff0f3;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
+
+        /* Progress Header */
+        .header-box { position: fixed; top: 15px; text-align: center; z-index: 100; }
+        .bar-bg { width: 320px; height: 18px; background: white; border: 3px solid var(--hot-pink); border-radius: 15px; overflow: hidden; box-shadow: 0 0 20px var(--barbie); }
+        #bar-fill { width: 4%; height: 100%; background: linear-gradient(90deg, var(--barbie), var(--hot-pink)); transition: 0.5s; }
+
+        /* Quest Card */
+        .quest-card {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 30px;
+            border-radius: 50px;
+            box-shadow: 0 15px 0px var(--bubblegum), 0 30px 60px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            border: 6px solid var(--barbie);
+            position: relative;
+            z-index: 10;
+            margin: 80px 20px 20px 20px;
+        }
+
+        h2 { color: var(--hot-pink); font-size: 1.3rem; text-transform: uppercase; margin: 10px 0; text-shadow: 1px 1px #fff; }
+        .narrative { font-size: 0.85rem; color: var(--barbie); font-weight: bold; display: block; margin-bottom: 12px; }
+        p { color: #444; font-size: 1.1rem; line-height: 1.4; }
+        
+        input {
+            width: 85%;
+            padding: 14px;
+            border: 3px solid var(--bubblegum);
+            border-radius: 30px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            outline: none;
+            background: #fff;
+        }
+
+        button {
+            background: var(--hot-pink);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 0px #9d0033;
+            transition: 0.1s;
+            margin: 5px;
+        }
+
+        button:active { transform: translateY(4px); box-shadow: none; }
+        .hidden { display: none; }
+        
+        /* Mouse Trail */
+        .trail-heart { position: fixed; pointer-events: none; z-index: 999; color: var(--hot-pink); font-size: 24px; animation: fade 1s forwards; }
+        @keyframes fade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.3) translateY(-40px); } }
+
+        /* Buffet Coupons */
+        .buffet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .coupon { background: #fff; padding: 10px; border-radius: 15px; border: 2px dashed var(--barbie); cursor: pointer; color: var(--hot-pink); font-size: 0.8rem; }
+        .coupon:hover { background: var(--bubblegum); }
+    </style>
+</head>
+<body>
+
+    <div class="header-box">
+        <div style="color: var(--hot-pink); font-weight: bold;">💖 LEVEL: <span id="lvl-txt">1</span>/25 💖</div>
+        <div class="bar-bg"><div id="bar-fill"></div></div>
+    </div>
+
+    <div class="quest-card" id="card">
+        <div id="q1"><h2>Level 1: The First Spark ✨</h2><span class="narrative">"When it all began."</span><p>Where or when did we say "I Love You" first?</p><input type="text" id="ans1"><button onclick="next(1)">LOCK IN THE BUTTERFLIES!🦋</button></div>
+        <div id="q2" class="hidden"><h2>Level 2: Face to Face 👤</h2><span class="narrative">"Reality was better than the dream."</span><p>Where did we meet face-to-face for the first time?</p><input type="text" id="ans2"><button onclick="next(2)">I'LL KILL U IF U DIDN'T REMEMBER THIS!😌</button></div>
+        <div id="q3" class="hidden"><h2>Level 3: The Big 'Us' 📅</h2><span class="narrative">"The official start of forever."</span><p>What is our official Anniversary Date?</p><input type="text" id="ans3"><button onclick="next(3)">SAVE THE DATE!🥂</button></div>
+        <div id="q4" class="hidden"><h2>Level 4: Digital Love 📱</h2><span class="narrative">"The text that started the fire."</span><p>What was the first thing you ever said to me?</p><input type="text" id="ans4"><button onclick="next(4)">YOU SLID INTO MY LIFE! 🛝</button></div>
+        <div id="q5" class="hidden"><h2>Level 5: Snack Addiction 🍭</h2><span class="narrative">"You know my cravings.The key to my happiness (and my stomach)"</span><p>What is my absolute favorite snack or drink?</p><input type="text" id="ans5"><button onclick="next(5)">YUM! GET ME SOME!</button></div>
+        <div id="q6" class="hidden"><h2>Level 6: My Favorite Voice 📞</h2><span class="narrative">"Hours felt like seconds.Phone heated up, hearts melted down."</span><p>How long was our longest phone call?</p><input type="text" id="ans6"><button onclick="next(6)">STILL NOT LONG ENOUGH!☎️</button></div>
+        <div id="q7" class="hidden"><h2>Level 7: The Oops Moment 🙊</h2><span class="narrative">"Even our awkwardness is cute.The 'Wait, are we mad?' moment."</span><p>What was our first awkward moment about?</p><input type="text" id="ans7"><button onclick="next(7)">WE SURVIVED THAT!💪</button></div>
+        <div id="q8" class="hidden"><h2>Level 8: Night Owl 🌙</h2><span class="narrative">"2 AM deep talks."</span><p>What do we usually talk about late at night?</p><input type="text" id="ans8"><button onclick="next(8)">SLEEP IS FOR THE WEAK!☕</button></div>
+        <div id="q9" class="hidden"><h2>Level 9: Our Song 🎶</h2><span class="narrative">"The melody of us."</span><p>What song makes me think of you immediately?</p><input type="text" id="ans9"><button onclick="next(9)">SING THAT FOR ME NOW!🎧</button></div>
+        <div id="q10" class="hidden"><h2>Level 10: Emoji Love 💌</h2><span class="narrative">"Our digital language."</span><p>What is the emoji I use the most with you?</p><input type="text" id="ans10"><button onclick="next(10)">SPAM IT TO ME!⌨️ HALFWAY!</button></div>
+        <div id="q11" class="hidden"><h2>Level 11: Hero Trait 💪</h2><span class="narrative">"Why I admire you."</span><p>What is your most attractive quality to me?</p><input type="text" id="ans11"><button onclick="next(11)">TRUE!😊</button></div>
+        <div id="q12" class="hidden"><h2>Level 12: Night vs Day 🦉</h2><span class="narrative">"Who stays up later?"</span><p>Who is the bigger night owl between us?</p><input type="text" id="ans12"><button onclick="next(12)">OTHER PERSON SHOULD BE!</button></div>
+        <div id="q13" class="hidden"><h2>Level 13: Inside Joke 😂</h2><span class="narrative">"One word for that laugh..."</span><p>What is our funniest inside joke?</p><input type="text" id="ans13"><button onclick="next(13)">HAHAHA</button></div>
+        <div id="q14" class="hidden"><h2>Level 14: Habit Tracker 🧸</h2><span class="narrative">"I see everything you do."</span><p>What is a cute habit I have that you notice?</p><input type="text" id="ans14"><button onclick="next(14)">YOU'RE SO OBSERVANT! 👀 WHICH U SHOULD BE BTW!🕵️‍♂️</button></div>
+        <div id="q15" class="hidden"><h2>Level 15: Flex Zone 🌟</h2><span class="narrative">"Fine, I'll let you have this one.You're the best at this."</span><p>What is something you're better at than I am?</p><input type="text" id="ans15"><button onclick="next(15)">SKILLS! SHOW OFF!🏅</button></div>
+        <div id="q16" class="hidden"><h2>Level 16: Comfy Vibes 🌧️</h2><span class="narrative">"Rain or shine?"</span><p>What is our favorite type of weather?</p><input type="text" id="ans16"><button onclick="next(16)">COMFY! LET'S STAY INSIDE!🏠</button></div>
+        <div id="q17" class="hidden"><h2>Level 17: Movie Critics 🎬</h2><span class="narrative">"Popcorn time."</span><p>One movie we both actually loved?</p><input type="text" id="ans17"><button onclick="next(17)">WATCH!🍿</button></div>
+        <div id="q18" class="hidden"><h2>Level 18: Digital Love 📱</h2><span class="narrative">"This shows if u really watch all reels i send."</span><p>What kind of Reels so i send you the most?</p><input type="text" id="ans18"><button onclick="next(18)">YOU SHOULD KNOW!--🤗</button></div>
+        <div id="q19" class="hidden"><h2>Level 19: The 1% Club 🔋</h2><span class="narrative">"Low battery life.Living dangerously at 1%."</span><p>Whose phone is always about to die?</p><input type="text" id="ans19"><button onclick="next(19)">>CHARHE YOURR PHONE!🔌ALMOST THERE!</button></div>
+        <div id="q20" class="hidden"><h2>Level 20: Biggest Fan 📣</h2><span class="narrative">"I'm in your corner.I’m your biggest stalker—I mean fan."</span><p>Who is your #1 supporter in the world?</p><input type="text" id="ans20"><button onclick="next(20)">ME! ME! ME!🙋‍♀️</button></div>
+        <div id="q21" class="hidden"><h2>Level 21: First Compliment 🌹</h2><span class="narrative">"The first nice thing I said."</span><p>What did I first compliment you on?</p><input type="text" id="ans21"><button onclick="next(21)">TELL ME AGAIN!😍</button></div>
+        <div id="q22" class="hidden"><h2>Level 22: Photo Gallery 🤳</h2><span class="narrative">"My camera roll is full."</span><p>How many photos of us do I have? (Guess!)</p><input type="text" id="ans22"><button onclick="next(22)">NEVER ENOUGH!📷 WE NEED MOREE!</button></div>
+        <div id="q23" class="hidden"><h2>Level 23: Secret Name 🍯</h2><span class="narrative">"My favorite name for you.You're stuck with this name now."</span><p>What is the silliest nickname I have for you?</p><input type="text" id="ans23"><button onclick="next(23)">DON'T TELL YOUR BOYS!🤐</button></div>
+        <div id="q24" class="hidden"><h2>Level 24: My Promise 🤝</h2><span class="narrative">"No matter what.No escaping me now."</span><p>Complete this: "I will always ____ you."</p><input type="text" id="ans24"><button onclick="next(24)">FINAL LOCK! CROSS MY HEART!❤️</button></div>
+        <div id="q25" class="hidden"><h2>Level 25: The Key 🗝️</h2><span class="narrative">"The final answer."</span><p>Who owns my heart forever?</p><input type="text" id="ans25" placeholder="Hint: YOU!"><button onclick="next(25)">BOSS DEFEATED! 🏁 FINISH QUEST!</button></div>
+        <div id="q26" class="hidden"><h2>SECRET BONUS LEVEL: The Ultimate Question 💖</h2><span class="narrative">"The question that matters the most."</span><p>How have I changed your life since the day we meet?</p><input type="text" id="ans26"><button onclick="next(26)">ANSWER THIS! AND IT SHOULDNT BE SHORT!</button></div>
+
+        <div id="finale" class="hidden">
+            <h1 style="color: var(--hot-pink);">YOU WON! YOU ARE MY CHAMPION! 🏆</h1>
+            <p>You survived all levels of my love.Happy Birthday, My Love!❤️</p>
+            <p>As a reward, you get these coupons to redeem! Lasts only for a day! 🕒</p>
+            <div class="buffet-grid">
+                <div class="coupon" onclick="redeem('Massage', this)"><h4>💆‍♂️ Massage</h4></div>
+                <div class="coupon" onclick="redeem('Lazy Sunday', this)"><h4>🧸 Lazy Day</h4></div>
+                <div class="coupon" onclick="redeem('Movie Pick', this)"><h4>🎬 Movie Pick</h4></div>
+                <div class="coupon" onclick="redeem('You Win Argument Today', this)"><h4>⚖️ You Win Argument Today</h4></div>
+                <div class="coupon" onclick="redeem('Steal a Kiss anytime', this)"><h4>💋 Steal a Kiss anytime</h4></div>
+                <div class="coupon" onclick="redeem('Unlimited Huggies', this)"><h4>🤗 Unlimited Huggies</h4></div>
+                <div class="coupon" onclick="redeem('Relaxing Back massage anytime', this)"><h4>💆‍♀️ Relaxing Back Massage</h4></div>
+                <div class="coupon" onclick="redeem('Gaming night', this)"><h4>🎮 Gaming Night</h4></div>
+                <div class="coupon" onclick="redeem('Extra Cuddle Session on demand ', this)"><h4>🤗 Extra Cuddle Session on demand </h4></div>
+                <div class="coupon" onclick="redeem('Anything you want day (within reason)', this)"><h4>🎁 Anything you want day (within reason)</h4></div>
+                <div class="coupon" onclick="redeem('Ill call you by name you want for the whole day', this)"><h4>💌 I'll call you by the name you want for the whole day</h4></div>
+                <div class="coupon" onclick="redeem('I say YES to reasonable things you ask all day', this)"><h4>✅ I say YES to reasonable things you ask all day</h4></div>
+                <div class="coupon" onclick="redeem('Write you a love letter', this)"><h4>💌 Write you a love letter</h4></div>
+                <div class="coupon" onclick="redeem('Good Morning Message Weekend', this)"><h4>🌅 Good Morning Message Weekend</h4></div>
+                <div class="coupon" onclick="redeem('Send you a surprise delivery', this)"><h4>💌 Send you a surprise delivery</h4></div>
+
+               
+                
+            </div>
+            <button onclick="sendAnswers()" style="margin-top: 20px; background: #25d366; font-size: 0.8rem;">📩 Send Answers to Queen</button>
+            <p style="font-size: 0.8rem; margin-top: 10px;">I love you 3000! 💖</p>
+        </div>
+    </div>
+
+    <script>
+        function next(curr) {
+            let val = document.getElementById('ans' + curr).value;
+            if(val.length < 1) { alert("Answer correctly to proceed, babe! ❤️"); return; }
+            document.getElementById('q' + curr).classList.add('hidden');
+            let nxt = curr + 1;
+            if(nxt <= 26) {
+                document.getElementById('q' + nxt).classList.remove('hidden');
+                document.getElementById('lvl-txt').innerText = nxt;
+                document.getElementById('bar-fill').style.width = (nxt * 4) + "%";
+            } else { showFinale(); }
+        }
+
+        function showFinale() {
+            document.getElementById('q26').classList.add('hidden');
+            document.getElementById('finale').classList.remove('hidden');
+            document.getElementById('bar-fill').style.width = "100%";
+            document.getElementById('lvl-txt').innerText = "26";
+            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function redeem(reward, element) {
+            element.style.opacity = '0.3';
+            element.style.pointerEvents = 'none';
+            alert(`REDEEMED: ${reward}! Take a screenshot, Birthday Boy!❤️`);
+        }
+
+        function sendAnswers() {
+            let report = "My Bday Quest Answers:%0D%0A";
+            for(let i = 1; i <= 25; i++) {
+                report += "Lvl " + i + ": " + document.getElementById('ans' + i).value + "%0D%0A";
+            }
+            // CHANGE THE EMAIL BELOW
+            window.location.href = "mailto:bytecrafted017@gmail.com?subject=My Quest Results&body=" + report;
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if(Math.random() > 0.1) return;
+            let h = document.createElement('div');
+            h.className = 'trail-heart';
+            h.innerHTML = ['😘','❤️','🔥','🌈','🫣','🤗'][Math.floor(Math.random()*4)];
+            h.style.left = e.pageX + 'px';
+            h.style.top = e.pageY + 'px';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 1000);
+        });
+    </script>
+</body>
+</html>
